@@ -1,0 +1,39 @@
+.board-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 80px - 40px);
+    padding: 20px;
+}
+
+.chip-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        font-size: larger;
+    }
+}
+
+.all-voices-selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.choices {
+    display: flex;
+    flex-direction: column;
+}
+
+h5 {
+    font-size: x-large;
+}

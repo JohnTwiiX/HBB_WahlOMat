@@ -1,0 +1,41 @@
+<div class="login-container">
+    <h2>Login</h2>
+    <form [formGroup]="formControl" (ngSubmit)="loginWithEmail()">
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Ex. pat@example.com" formControlName="email">
+            @if(email&&email.hasError('required')){
+            <mat-error>
+                Email ist <strong>erforderlich</strong>
+            </mat-error>
+            }@else if (email&&email.hasError('email') && !email.hasError('required')) {
+            <mat-error>
+                Bitte geben Sie eine gültige E-Mail-Adresse ein
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Passwort</mat-label>
+            <input matInput type="password" formControlName="password">
+            @if(password && password.hasError('required')){
+            <mat-error>
+                Password ist <strong>erforderlich</strong>
+            </mat-error>
+            }
+        </mat-form-field>
+        <mat-error>
+            @if(isError){
+            Password oder Email ist nicht richtig!
+            }
+        </mat-error>
+        <button mat-raised-button type="submit" [disabled]="formControl.invalid">Login</button>
+        <p>Du hast noch keinen Account? <br> <a routerLink="/register">Hier registrieren</a></p>
+    </form>
+    <div class="btn-container">
+        <button mat-raised-button (click)="loginWithGoogle()">Einloggen mit Google Konto</button>
+    </div>
+
+
+
+</div>

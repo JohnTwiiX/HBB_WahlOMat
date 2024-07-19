@@ -1,0 +1,37 @@
+.admin-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100% - 140px);
+
+    .result {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        justify-content: space-between;
+        font-size: larger;
+        font-weight: 500;
+
+        .divider {
+            border-top: 2px solid;
+            margin-top: 8px;
+        }
+
+        div {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px;
+        }
+    }
+
+    .chip-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            font-size: larger;
+        }
+    }
+}

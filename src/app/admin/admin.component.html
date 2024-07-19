@@ -1,0 +1,63 @@
+<h4 style="text-align: center;">Admin Bereich</h4>
+<div class="admin-container">
+
+    <div>
+        @if (pages === 'dashboard') {
+        <div>
+            <button (click)="clickOnResult()" mat-stroked-button>Ergebnis sehen</button>
+            <button (click)="clickOnAddAdmin()" mat-stroked-button>Ein User zum Admin benennen / entfernen</button>
+        </div>
+        }@else if (pages === 'result') {
+        <button (click)="switchPage('dashboard')" mat-button>zurück</button>
+        <div class="result">
+            @for (user of result.voiceCounts; track $index) {
+            <div>
+                <span>{{$index +1}}. {{getUsername(user.voice)}}: </span>
+                <span>{{user.count}}</span>
+            </div>
+            <mat-progress-bar mode="determinate" value="{{100 / result.totalCount * user.count}}"></mat-progress-bar>
+            }
+            <mat-divider class="divider"></mat-divider>
+            <div>
+                <span>Gesamtstimmen: </span>
+                <span>{{result.totalCount}}</span>
+            </div>
+        </div>
+        }@else if (pages === 'addAdmin') {
+        <button (click)="switchPage('dashboard')" mat-button>zurück</button>
+        <div>
+            <mat-chip-listbox #chipList aria-orientation="horizontal">
+                @for (user of allUsers; track $index) {
+                <mat-chip style="height: 50px;" highlighted="{{user.role === 'admin'}}" (click)="clickOnChip(user)">
+                    <div class="chip-container">
+                        @if (user.role === 'admin') {
+                        <mat-icon>check</mat-icon>
+                        }
+                        <span>{{ user.display_name }}</span>
+                    </div>
+                </mat-chip>
+
+                }
+            </mat-chip-listbox>
+            @if (isDialogOpen) {
+            <app-dialog (closed)="closeDialog()">
+                @if (selectedUser && selectedUser.role === 'admin') {
+                <p>Möchtest du {{selectedUser.display_name}} die Admin Rolle wegnehmen?</p>
+                <div>
+                    <button (click)="setUserRole('user')" mat-button>Ja</button>
+                    <button (click)="closeDialog()" mat-button>nein</button>
+                </div>
+                }@else {
+                <p>Möchtest du {{selectedUser?.display_name}} die Admin Rolle geben?</p>
+                <div>
+                    <button (click)="setUserRole('admin')" mat-button>Ja</button>
+                    <button (click)="closeDialog()" mat-button>nein</button>
+                </div>
+                }
+            </app-dialog>
+            }
+
+        </div>
+        }
+    </div>
+</div>

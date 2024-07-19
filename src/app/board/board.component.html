@@ -1,0 +1,55 @@
+<div class="board-container">
+    @if (isLoading) {
+    <mat-spinner></mat-spinner>
+    }@else if (userItems.canVote && !sendChoisesBool) {
+
+    <h5>
+        Wähle deine Kandidaten...
+    </h5>
+    <span>Du hast noch {{choices}} Stimmen</span>
+    <div style="margin: 8px;">
+        <mat-chip-listbox #chipList aria-orientation="horizontal">
+            @for (user of users; track $index) {
+            <mat-chip style="height: 50px;" highlighted="{{chips.value.includes(user.uid)}}"
+                (click)="clickOnChip(user.uid)">
+                <div class="chip-container">
+                    @if (chips.value.includes(user.uid)) {
+                    <mat-icon>check</mat-icon>
+                    }
+                    <span>{{ user.display_name }}</span>
+                </div>
+            </mat-chip>
+            }
+        </mat-chip-listbox>
+
+    </div>
+    @if (chipControl.hasError('required')) {
+    <mat-error>Bitte gib eine Stimme ab</mat-error>
+    }@else if (chipControl.hasError('tooManyChips')) {
+    <mat-error>Zu viele Stimmen abgegeben!</mat-error>
+    }
+    <button mat-raised-button [disabled]="chips.value.length < 4" (click)="openDialog()">Stimmen abgeben</button>
+
+    }@else if(sendChoisesBool || !userItems.canVote && userItems.voices.length === 4) {
+    <div class="all-voices-selected">
+        <h3>Du hast all deine Stimmen abgegeben!</h3>
+    </div>
+    }
+    @if (isDialogOpen) {
+    <app-dialog (closed)="closeDialog()">
+
+        <p>Möchtest du diese Stimmen abgeben?</p>
+        <p>(Deine Auswahl kann nicht mehr Rückgängig gemacht werden!)</p>
+        <div class="choices">
+            @for (user of chipControl.value.voices; track $index) {
+            <span>- {{getUsername(user)}}</span>
+            }
+        </div>
+        <div class="btn-container">
+            <button (click)="sendChoices()" mat-button>Ja</button>
+            <button (click)="closeDialog()" mat-button>nein</button>
+        </div>
+    </app-dialog>
+    }
+
+</div>

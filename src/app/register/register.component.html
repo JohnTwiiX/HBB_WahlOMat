@@ -1,0 +1,78 @@
+<div class="login-container">
+    <h2>Registrierung</h2>
+    <form [formGroup]="formControl" (ngSubmit)="register()">
+        <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="first_name">
+            @if(first_name&&first_name.hasError('required')){
+            <mat-error>
+                Name ist <strong>erforderlich</strong>
+            </mat-error>
+            }@else if (formControl.get('first_name')?.hasError('onlyChars')) {
+            <mat-error>
+                Bitte nur Buchstaben benutzen.
+            </mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Nachname</mat-label>
+            <input matInput formControlName="last_name">
+            @if(last_name&&last_name.hasError('required')){
+            <mat-error>
+                Nachname ist <strong>erforderlich</strong>
+            </mat-error>
+            }@else if (formControl.get('last_name')?.hasError('onlyChars')) {
+            <mat-error>
+                Bitte nur Buchstaben benutzen.
+            </mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Ex. pat@example.com" formControlName="email">
+            @if(email&&email.hasError('required')){
+            <mat-error>
+                Email ist <strong>erforderlich</strong>
+            </mat-error>
+            }@else if (email&&email.hasError('email') && !email.hasError('required')) {
+            <mat-error>
+                Bitte geben Sie eine gültige E-Mail-Adresse ein
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Passwort</mat-label>
+            <input matInput type="password" formControlName="password">
+            @if(password && password.hasError('required')){
+            <mat-error>
+                Passwort ist <strong>erforderlich</strong>
+            </mat-error>
+            }@else if(password && password.hasError('minlength') && !password.hasError('required')){
+            <mat-error>
+                Passwort muss mindestens 6 Zeichen haben!
+            </mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Passwort bestätigen</mat-label>
+            <input matInput type="password" placeholder="Confirm your password" formControlName="confirmPassword">
+            @if(confirmPassword&&confirmPassword.hasError('required')){
+            <mat-error>
+                Die Bestätigung Ihres Passwortes ist<strong>erforderlich</strong>
+            </mat-error>
+            }
+        </mat-form-field>
+
+        <mat-error>
+            @if (confirmPassword?.value && password?.value && formControl.hasError('passwordsNotMatching')) {
+            Passwörter stimmen nicht überein!
+            } @else if (isError) {
+            Account existiert bereits!
+            }
+        </mat-error>
+
+        <button mat-raised-button type="submit" [disabled]="formControl.invalid">Register</button>
+        <p>Du hast schon ein Account? <br><a routerLink="/login">Hier einloggen</a></p>
+    </form>
+</div>

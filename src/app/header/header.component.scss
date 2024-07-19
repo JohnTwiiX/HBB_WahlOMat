@@ -1,0 +1,17 @@
+header {
+    height: 80px;
+    background: black;
+    color: white;
+    font-size: x-large;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .admin {
+        position: absolute;
+        right: 20px;
+        color: white;
+        top: 50px;
+    }
+}
