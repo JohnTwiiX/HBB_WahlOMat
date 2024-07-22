@@ -24,7 +24,7 @@ interface VoiceCount {
 export class AdminComponent {
   userItems!: UserItems | null;
   isAdmin: boolean = false;
-  pages: 'dashboard' | 'result' | 'addAdmin' = 'dashboard';
+  pages: 'dashboard' | 'result' | 'addAdmin' | 'allChoices' = 'dashboard';
   allUsers: any = null;
   candidates: any = null;
   result: any = null;
@@ -84,7 +84,14 @@ export class AdminComponent {
     // await this.getAllUsers();
   }
 
-  switchPage(page: 'dashboard' | 'result' | 'addAdmin') {
+  clickOnChoices() {
+    if (!this.result) {
+      this.result = this.countVoices();
+    }
+    this.switchPage('allChoices');
+  }
+
+  switchPage(page: 'dashboard' | 'result' | 'addAdmin' | 'allChoices') {
     this.pages = page;
   }
 

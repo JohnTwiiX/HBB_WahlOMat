@@ -1,11 +1,12 @@
 <h4 style="text-align: center;">Admin Bereich</h4>
 <div class="admin-container">
 
-    <div>
+    <div style="height: 100%;">
         @if (pages === 'dashboard') {
         <div>
             <button (click)="clickOnResult()" mat-stroked-button>Ergebnis sehen</button>
             <button (click)="clickOnAddAdmin()" mat-stroked-button>Ein User zum Admin benennen / entfernen</button>
+            <button (click)="clickOnChoices()" mat-stroked-button>Wählerliste</button>
         </div>
         }@else if (pages === 'result') {
         <button (click)="switchPage('dashboard')" mat-button>zurück</button>
@@ -15,7 +16,8 @@
                 <span>{{$index +1}}. {{getUsername(user.voice)}}: </span>
                 <span>{{user.count}}</span>
             </div>
-            <mat-progress-bar mode="determinate" value="{{100 / result.totalCount * user.count}}"></mat-progress-bar>
+            <mat-progress-bar mode="determinate"
+                value="{{100 / (result.totalCount/4) * user.count}}"></mat-progress-bar>
             }
             <mat-divider class="divider"></mat-divider>
             <div>
@@ -58,6 +60,30 @@
             }
 
         </div>
+        }@else if (pages === 'allChoices') {
+        <div style="height:100%">
+            <button (click)="switchPage('dashboard')" mat-button>zurück</button>
+            <div style="width: 420px; height:90%; overflow:scroll;">
+                <div class="user-container">
+                    <span>Name</span>
+                    <span>Email</span>
+                    <span>gewählt</span>
+                </div>
+                @for (user of allUsers; track $index) {
+                <div class="user-container">
+                    <span>{{user.display_name}} </span>
+                    <span>{{user.Email}}</span>
+                    @if (user.voices.length === 4) {
+                    <mat-icon>done</mat-icon>
+                    }@else {
+                    <mat-icon>clear</mat-icon>
+                    }
+                </div>
+                <mat-divider></mat-divider>
+                }
+            </div>
+        </div>
+
         }
     </div>
 </div>

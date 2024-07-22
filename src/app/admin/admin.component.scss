@@ -34,4 +34,10 @@
             font-size: larger;
         }
     }
+
+    .user-container {
+        display: flex;
+        justify-content: space-between;
+        margin: 8px 0;
+    }
 }
