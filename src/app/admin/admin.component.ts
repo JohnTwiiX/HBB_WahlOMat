@@ -26,6 +26,7 @@ export class AdminComponent {
   isAdmin: boolean = false;
   pages: 'dashboard' | 'result' | 'addAdmin' = 'dashboard';
   allUsers: any = null;
+  candidates: any = null;
   result: any = null;
 
   isDialogOpen = false;
@@ -76,8 +77,6 @@ export class AdminComponent {
     // await this.getAllUsers();
     this.result = this.countVoices();
     this.switchPage('result');
-    console.log(this.result.voiceCounts);
-
   }
 
   async clickOnAddAdmin() {
@@ -95,6 +94,11 @@ export class AdminComponent {
         this.allUsers = users
       }
     });
+    this.authService.getFromCollection('candidates').subscribe({
+      next: candidates => {
+        this.candidates = candidates
+      }
+    })
   }
 
   countVoices() {
@@ -130,7 +134,7 @@ export class AdminComponent {
   }
 
   getUsername(uid: string): string {
-    for (const user of this.allUsers) {
+    for (const user of this.candidates) {
       if (user.uid === uid) {
         return user.display_name;
       }

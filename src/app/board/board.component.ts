@@ -114,6 +114,7 @@ export class BoardComponent {
       this.firebaseService.updateUserItems(user, voices);
     };
     this.sendChoisesBool = true;
+    this.closeDialog();
   }
 
   getUsername(uid: string): string {

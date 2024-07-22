@@ -27,4 +27,8 @@ export class HeaderComponent {
   adminPage() {
     this.router.navigate(['/admin']);
   }
+
+  boardPage() {
+    this.router.navigate(['/board']);
+  }
 }
